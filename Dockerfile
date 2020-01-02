@@ -1,7 +1,7 @@
-FROM php:7.3-alpine
+FROM php:7.3-apache
 
 # Install dev dependencies
-RUN apk add --no-cache --virtual .build-deps \
+RUN apt install \
     $PHPIZE_DEPS \
     curl-dev \
     imagemagick-dev \
@@ -11,7 +11,7 @@ RUN apk add --no-cache --virtual .build-deps \
     sqlite-dev
 
 # Install production dependencies
-RUN apk add --no-cache \
+RUN apt install \
     bash \
     curl \
     g++ \
@@ -86,3 +86,4 @@ RUN php artisan key:generate
 RUN php artisan db:init
 RUN php artisan migrate --seed
 RUN php artisan clue:import cluedo.csv
+
