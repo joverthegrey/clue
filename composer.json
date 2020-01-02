@@ -33,10 +33,6 @@
     "extra": {
         "laravel": {
             "dont-discover": []
-        },
-        "heroku": {
-            "document-root": "public",
-            "index-document": "index.php"
         }
     },
     "autoload": {
