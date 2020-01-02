@@ -1,7 +1,7 @@
-FROM php:7.3-apache
+FROM ulsmith/alpine-apache-php7
 
 # Install dev dependencies
-RUN apt install \
+RUN apk add --no-cache --virtual .build-deps \
     $PHPIZE_DEPS \
     curl-dev \
     imagemagick-dev \
@@ -11,7 +11,8 @@ RUN apt install \
     sqlite-dev
 
 # Install production dependencies
-RUN apt install \
+RUN apk add --no-cache \
+    apache2 \
     bash \
     curl \
     g++ \
@@ -31,33 +32,6 @@ RUN apt install \
     zlib-dev \
     libzip-dev
 
-# Install PECL and PEAR extensions
-RUN pecl install \
-    imagick \
-    xdebug
-
-# Install and enable php extensions
-RUN docker-php-ext-enable \
-    imagick \
-    xdebug
-RUN docker-php-ext-configure zip --with-libzip
-RUN docker-php-ext-install \
-    calendar \
-    curl \
-    exif \
-    iconv \
-    mbstring \
-    pdo \
-    pdo_mysql \
-    pdo_pgsql \
-    pdo_sqlite \
-    pcntl \
-    tokenizer \
-    xml \
-    gd \
-    zip \
-    bcmath
-
 # Install composer
 ENV COMPOSER_HOME /composer
 ENV PATH ./vendor/bin:/composer/vendor/bin:$PATH
@@ -70,20 +44,29 @@ RUN composer global require "squizlabs/php_codesniffer=*"
 # Cleanup dev dependencies
 RUN apk del -f .build-deps
 
+
 # add the application
-ADD . /var/www
+ADD . /app
 
 # Setup working directory
-WORKDIR /var/www
+WORKDIR /app
 
-# install dependecies
+# install dependecies for the application
 RUN composer update
 RUN npm install
 
+# fix access
+RUN chown -R apache:apache /app
+
+# become apache
+USER apache
+
 # config application
-RUN cat .env.example >> .env
+RUN cat .env.example > .env
 RUN php artisan key:generate
 RUN php artisan db:init
 RUN php artisan migrate --seed
 RUN php artisan clue:import cluedo.csv
 
+# return to be root
+USER root
