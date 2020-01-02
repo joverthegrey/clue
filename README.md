@@ -1,2 +1,2 @@
-# clue
-Clue game for scouting
+# Clue
+Simple clue game I created for [RegioZON](https://www.regiozon.nl)

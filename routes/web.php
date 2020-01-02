@@ -14,3 +14,14 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/QR', function () {
+    return QRCode::url(route('register'))
+        ->setSize(8)
+        ->setMargin(2)
+        ->png();
+})->name('qr');
+
+Auth::routes(['verify' => false, 'reset' => false, 'confirm' => false]);
+
+Route::get('/home', 'HomeController@index')->name('home');
