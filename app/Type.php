@@ -12,4 +12,9 @@ class Type extends Model
     {
         return $this->hasMany('App\Clue');
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role');
+    }
 }

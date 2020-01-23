@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
         $admin->name = 'Clue Admin';
         $admin->email = 'admin@clue.local';
         $admin->password = Hash::make('admin');
+        $admin->role()->associate($admin_role);
         $admin->save();
     }
 }

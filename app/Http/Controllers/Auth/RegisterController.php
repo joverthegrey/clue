@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Role;
 use App\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -64,9 +65,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        // get the role
+        $role = Role::where(['name' => (array_key_exists('post', $data) ? 'post' : 'fox')])->first();
+
+        $user = User::create([
             'name' => $data['name'],
         ]);
+
+        $user->role()->associate($role);
+
+        return $user;
     }
 
     /**

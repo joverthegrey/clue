@@ -22,6 +22,8 @@ Route::get('/QR', function () {
         ->png();
 })->name('qr');
 
+
 Auth::routes(['verify' => false, 'reset' => false, 'confirm' => false]);
 
+Route::get('/pick', 'HomeController@pick')->name('pick')->middleware('admin');
 Route::get('/home', 'HomeController@index')->name('home');

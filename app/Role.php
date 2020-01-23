@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
-    public function clues() {
-        return $this->hasMany('App\Clue');
+    public function types()
+    {
+        return $this->belongsToMany('App\Type');
     }
 }
