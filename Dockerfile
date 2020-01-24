@@ -65,7 +65,7 @@ USER apache
 RUN cat .env.docker > .env
 RUN php artisan key:generate
 RUN php artisan db:init
-RUN php artisan migrate --seed
+RUN php artisan migrate --force --seed
 RUN php artisan clue:import cluedo.csv
 
 # return to be root
