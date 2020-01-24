@@ -62,7 +62,7 @@ RUN chown -R apache:apache /app
 USER apache
 
 # config application
-RUN cat .env.example > .env
+RUN cat .env.docker > .env
 RUN php artisan key:generate
 RUN php artisan db:init
 RUN php artisan migrate --seed
