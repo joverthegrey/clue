@@ -7,6 +7,7 @@
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2
+        - run: rm -rf .git .DS_Store
 
         - uses: meeDamian/github-release@2.0
           with:
