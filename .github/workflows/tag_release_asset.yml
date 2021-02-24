@@ -12,5 +12,5 @@
           with:
             token: ${{ secrets.GITHUB_TOKEN }}
             files: package:.
-            gzip: yes
+            gzip: true
 
