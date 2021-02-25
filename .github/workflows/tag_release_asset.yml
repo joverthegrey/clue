@@ -8,13 +8,12 @@
       steps:
         - uses: actions/checkout@v2
         - run: rm -rf .git .DS_Store
-        - run: mkdir /tmp/release
-        - run: mv * /tmp/release
-        - run: mv /tmp/release clue
+        - run: mkdir -p /tmp/release/clue
+        - run: cp -R . /tmp/release/clue
 
         - uses: meeDamian/github-release@2.0
           with:
             token: ${{ secrets.GITHUB_TOKEN }}
-            files: package:.
+            files: package:/tmp/release
             gzip: true
 
