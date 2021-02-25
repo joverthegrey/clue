@@ -19,5 +19,5 @@
             files: >
               package:clue
               package.zip
-            gzip: folder
+            gzip: folders
 
