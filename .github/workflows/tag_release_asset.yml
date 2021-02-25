@@ -8,6 +8,8 @@
       steps:
         - uses: actions/checkout@v2
         - run: rm -rf .git .DS_Store
+        - run: mkdir release
+        - run: mv * release
 
         - uses: meeDamian/github-release@2.0
           with:
