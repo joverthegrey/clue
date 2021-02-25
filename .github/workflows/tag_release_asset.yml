@@ -8,8 +8,8 @@
       steps:
         - uses: actions/checkout@v2
         - run: rm -rf .git .DS_Store
-        - run: mkdir -p /tmp/release/clue
-        - run: cp -R . /tmp/release/clue
+        - run: mkdir -p /tmp/release
+        - run: cp -R . /tmp/release
         - run: mv /tmp/release .
 
         - uses: meeDamian/github-release@2.0
