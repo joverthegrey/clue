@@ -10,10 +10,11 @@
         - run: rm -rf .git .DS_Store
         - run: mkdir -p /tmp/release/clue
         - run: cp -R . /tmp/release/clue
+        - run: mv /tmp/release .
 
         - uses: meeDamian/github-release@2.0
           with:
             token: ${{ secrets.GITHUB_TOKEN }}
-            files: package:/tmp/release
+            files: package:release
             gzip: true
 
